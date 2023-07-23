@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'registerPage.css' %}"/>
+  </head>
+  <body class="container">
+    <h1>RIDESHARE</h1>
+    <div style="margin-bottom:20px">Register</div>
+    {% for message in messages %}
+      {% if message.tags %}  
+      <div class="alert {{message.tags}}-alert">
+        <div class="alert-inner">{{ message }}</div>
+        <button 
+          style="width:20px; height: 20px; align-self: center; margin-right: 10px;"
+          onclick="closeParent(this)">
+          &times
+        </button>
+      </div> 
+      {% endif %}
+    {% endfor %}
+    <form class="login-container" action="" method="POST">
+      {% csrf_token %}
+      <div>
+        <div class="key">Username</div>
+        <div>
+          <input
+            name="username"
+            type="text"
+            required
+          ></input>
+        </div>
+      </div>
+      <div>
+        <div class="key">Password</div>
+        <div>
+          <input
+            onfocus="instructions(1)"
+            onblur="instructions(0)"
+            id="password"
+            name="password"
+            type="password"
+            required
+          ></input>
+        </div>
+      </div>
+      <ul
+        class="instructions"
+      >
+        <li>Minimum eight characters</li>
+        <li>Atleast one letter</li>
+        <li>Atleast one number</li>
+        <li>Atleast one special character</li>
+      </ul>
+      <div class="radio-container">
+        <input
+          type="radio"
+          id="user"
+          name="type"
+          value="user"
+          required
+          />
+        <label for="user">User</label>
+        <div class="width-spacer"></div>
+        <input
+          type="radio"
+          id="driver"
+          name="type"
+          value="driver"
+          required
+          />
+        <label for="driver">Driver</label>
+      </div>
+      <div>
+        <a href="/" id="loginLink" style="margin-right:15px">
+          Already have an account?
+        </a>
+        <button type="submit">
+          Register
+        </button>
+      </div>
+    </form>
+    <script>
+      function instructions(show) {
+        var e = document.getElementsByClassName('instructions')[0];
+        if(show == 0) {
+          e.style.display = 'none';
+        } else {
+          e.style.display = 'block';
+        }
+      }
+
+      function closeParent(e) {
+        e.parentElement.style.display = 'none';
+      }
+    </script>
+  </body>
+</html>

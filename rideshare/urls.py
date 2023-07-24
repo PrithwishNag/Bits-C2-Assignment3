@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.urls import path
 from authentication import views as auth_view
+from search import views as search_view
 
 urlpatterns = [
     path('', auth_view.login),
     path('register', auth_view.register),
-    path('dashboard', auth_view.register),
+    path('dashboard', search_view.dashboard),
 ]

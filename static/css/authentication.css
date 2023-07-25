@@ -1,20 +1,30 @@
+.heading {
+  font-size: 40px;
+  color: var(--secondary-color);
+}
+
+.sub-heading {
+  font-size: 20px;
+  color: var(--secondary-color);
+}
+
 #login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 260px;
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border: 1px solid rgb(66, 66, 66);
+  border: 2px solid var(--secondary-color);
   border-radius: 10px;
 }
 
 .key {
   font-size: 13px;
   margin-bottom: 5px;
-  color: rgb(66, 66, 66);
 }
 
 #switchLink {
@@ -25,6 +35,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   margin-right: 20px;
 }
 
@@ -49,7 +60,7 @@ label {
   width: 320px;
   height: 40px;
   border-radius: 7px;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
 .alert-inner {
@@ -60,9 +71,17 @@ label {
 }
 
 .error-alert {
-  background-color: #FF6961;
+  background-color: #ff6961;
 }
 
 .success-alert {
-  background-color: #77DD77;
+  background-color: #77dd77;
+}
+
+.close-button {
+  width: 20px;
+  height: 20px;
+  align-self: center;
+  margin-right: 10px;
+  padding: 0px;
 }

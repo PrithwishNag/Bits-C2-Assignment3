@@ -3,9 +3,18 @@
   src: url("/static/fonts/inter/Inter-Regular.ttf");
 }
 
+:root {
+  --primary-color: #f5f0e1;
+  --secondary-color: #1e3d59;
+  --accent-color: #ff6e40;
+  --navigation-bar-height: 80px;
+  --sidebar-width: 200px;
+}
+
 body {
   font-family: "inter";
-  background-color: #fdfd96;
+  background-color: var(--primary-color);
+  color: var(--secondary-color)
 }
 
 .container {
@@ -29,29 +38,33 @@ body {
   align-items: center;
 }
 
+.vertical-center {
+  justify-content: center;;
+}
+
 input {
-  font-family: "inter";
-  width: 100%;
+  width: 200px;
+  height: 35px;
+  font-size: 13px;
   outline: none;
-  border: none;
-  border-bottom: 1px solid rgb(66, 66, 66);
-  background-color: inherit;
-  font-size: 18px;
+  background-color: var(--primary-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 5px;
+  font-family: "inter";
 }
 
 button {
   font-family: "inter";
-  width: 100px;
-  height: 30px;
-  padding: 0;
-  border: 1px solid rgb(66, 66, 66);
-  border-radius: 10px;
-  background: none;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  width: 120px;
+  height: 35px;
 }
 
 button:hover {
-  background-color: rgb(66, 66, 66);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .horizontal-line {

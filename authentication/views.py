@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from .utils import registrationValidation
@@ -18,7 +18,8 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                return redirect("dashboard")
+                auth.login(request, user)
+                return redirect("/dashboard")
             else:
                 messages.error(request, LOGIN_ERROR_MSG)
 

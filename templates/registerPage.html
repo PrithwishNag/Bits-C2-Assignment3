@@ -8,13 +8,13 @@
 </head>
 
 <body class="container">
-  <h1>RIDESHARE</h1>
-  <div style="margin-bottom: 20px">Register</div>
+  <h1 class="heading">RIDESHARE</h1>
+  <div class="sub-heading" style="margin-bottom: 20px">Register</div>
   {% for message in messages %}
   {% if message.tags %}
   <div class="alert {{message.tags}}-alert">
     <div class="alert-inner">{{ message }}</div>
-    <button style="width:20px; height: 20px; align-self: center; margin-right: 10px;" onclick="closeParent(this)">
+    <button class="close-button" onclick="closeParent(this)">
       &times
     </button>
   </div>
@@ -44,10 +44,10 @@
       </ul>
     </div>
     <div class="radio-container">
-      <input type="radio" id="user" name="type" value="user" required />
+      <input style="width: 25px; margin-right: 5px;" type="radio" id="user" name="type" value="user" required />
       <label for="user">User</label>
       <div class="width-spacer"></div>
-      <input type="radio" id="driver" name="type" value="driver" required />
+      <input style="width: 25px; margin-right: 5px;" type="radio" id="driver" name="type" value="driver" required />
       <label for="driver">Driver</label>
     </div>
     <div>

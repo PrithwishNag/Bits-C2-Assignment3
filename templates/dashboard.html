@@ -22,7 +22,7 @@
         </div>
         <div class="nav-features">
             <a href="#" class="selected">Book A Ride</a>
-            <a href="#">Bid History</a>
+            <a href="#">Ride Status</a>
             <a href="#">Ride History</a>
             <a href="#">Ongoing Bids</a>
         </div>
@@ -102,11 +102,11 @@
             <div class="col horizontal-center" id="ride-options-present">
                 <div class="title">Ride Options</div>
                 <div id="ride-options">
-                    <div class="row ride-option">
+                    <a class="row ride-option">
                         <div class="col">30 mins</div>
                         <div class="col">3 drivers</div>
                         <div class="col">Rs. 100/-</div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -154,16 +154,28 @@
             if (show == 1) {
                 var rideOptionsJson = JSON.parse(rideOptions)
                 var rideOptionsEle = document.getElementById('ride-options')
-                for (var i = 1; i < rideOptionsJson.length; i++) {
-                    var clone = rideOptionsEle.firstElementChild.cloneNode(true)
-                    clone.children[0].innerHTML = rideOptionsJson[i]['eta'] + ' mins'
-                    clone.children[1].innerHTML = rideOptionsJson[i]['drivers'] + ' drivers'
-                    clone.children[2].innerHTML = 'Rs. ' + rideOptionsJson[i]['price'] + '/-'
-                    rideOptionsEle.appendChild(clone)
+                for (var i = 0; i < rideOptionsJson.length; i++) {
+                    if (i == 0) {
+                        var rideOptionEle = rideOptionsEle.firstElementChild
+                    } else {
+                        var rideOptionEle = rideOptionsEle.firstElementChild.cloneNode(true)
+                    }
+                    rideOptionEle.children[0].innerHTML = rideOptionsJson[i]['eta'] + ' mins'
+                    rideOptionEle.children[1].innerHTML = rideOptionsJson[i]['drivers'] + ' drivers'
+                    rideOptionEle.children[2].innerHTML = 'Rs. ' + rideOptionsJson[i]['price'] + '/-'
+                    var href = '/rideStatus?id=' + rideOptionsJson[i]['id'];
+                    rideOptionEle.setAttribute('onclick', 'confirmRideAlert(\"' + href + '\"); return false;')
+                    rideOptionsEle.appendChild(rideOptionEle)
                 }
                 block1.style.display = 'none'
             } else {
                 block2.style.display = 'none'
+            }
+        }
+
+        function confirmRideAlert(href) {
+            if (window.confirm("Are you sure you want to confirm this ride options?")) {
+                window.location.href = href
             }
         }
     </script>

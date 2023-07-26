@@ -267,6 +267,8 @@ button {
   justify-content: space-evenly;
   padding-top: 10px;
   padding-bottom: 10px;
+  color: inherit;
+  text-decoration: none !important;
 }
 
 .ride-option:hover {

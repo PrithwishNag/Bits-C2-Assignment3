@@ -15,3 +15,7 @@ def dashboard(request):
             data_string = json.dumps(data)
             return render(request, 'dashboard.html', {'rideOptions': data_string})
     return render(request, 'dashboard.html')
+
+
+def rideStatus(request):
+    return render(request, 'rideStatus.html')

@@ -51,48 +51,119 @@
     <div class="main row horizontal-center">
         <div class="main-left col horizontal-center">
             <div class="title">Search for a ride</div>
-            <div class="location-group row">
-                <div class="group-1 row horizontal-center">
-                    <div class="row" style="margin-bottom: 15px">
-                        <div class="col current-location-icon">
-                            <img width="30px" height="30px" src="{% static 'images/currentLocationIcon.svg' %}" />
-                        </div>
-                        <div class="col horizontal-center">
-                            <div>Pickup Location</div>
-                            <input />
-                        </div>
-                    </div>
-                    <div class="start-symbol"></div>
-                    <div class="horizontal-line"></div>
-                </div>
-                <div class="vertical-line"></div>
-                <div class="group-2 row horizontal-center">
-                    <div class="horizontal-line"></div>
-                    <div class="end-symbol"></div>
-                    <div class="col horizontal-center" style="margin-bottom: 15px">
-                        <div>Dropoff Location</div>
-                        <input />
-                    </div>
-                </div>
+            {% for message in messages %}
+            {% if message.tags %}
+            <div class="alert {{message.tags}}-alert">
+                <div class="alert-inner">{{ message }}</div>
+                <button class="close-button" onclick="closeParent(this)">
+                    &times
+                </button>
             </div>
-            <div class="row"><button class="search-button">Search</button></div>
+            {% endif %}
+            {% endfor %}
+            <form class="col horizontal-center" action="" method="POST">
+                {% csrf_token %}
+                <div class="location-group row">
+                    <div class="group-1 row horizontal-center">
+                        <div class="row" style="margin-bottom: 15px">
+                            <div class="col current-location-icon" onclick="getLocation()">
+                                <img width="30px" height="30px" src="{% static 'images/currentLocationIcon.svg' %}" />
+                            </div>
+                            <div class="col horizontal-center">
+                                <div>Pickup Location</div>
+                                <input id="pickup-location-input" name="pickup-location" />
+                            </div>
+                        </div>
+                        <div class="start-symbol"></div>
+                        <div class="horizontal-line"></div>
+                    </div>
+                    <div class="vertical-line"></div>
+                    <div class="group-2 row horizontal-center">
+                        <div class="horizontal-line"></div>
+                        <div class="end-symbol"></div>
+                        <div class="col horizontal-center" style="margin-bottom: 15px">
+                            <div>Dropoff Location</div>
+                            <input name="dropoff-location" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row"><button class="search-button" type="submit">Search</button></div>
+            </form>
         </div>
         <div class="vertical-line vertical-line-main-divider"></div>
         <div class="horizontal-line horizontal-line-main-divider"></div>
-        <div class="main-right col horizontal-center">
-            <div class="title">Why Rideshare?</div>
-            <div class="desc">An easy way to negotiate for a ride anywhere, anytime.</div>
-            <div class="motto">Plan. Negotiate. Ride.</div>
-            <img width="150px" height="150px" src="{% static 'images/handshake.png' %}" />
+        <div class="main-right col">
+            <div class="col horizontal-center" id="ride-options-absent">
+                <div class="title">Why Rideshare?</div>
+                <div class="desc">An easy way to negotiate for a ride anywhere, anytime.</div>
+                <div class="motto">Plan. Negotiate. Ride.</div>
+                <img width="150px" height="150px" src="{% static 'images/handshake.png' %}" />
+            </div>
+            <div class="col horizontal-center" id="ride-options-present">
+                <div class="title">Ride Options</div>
+                <div id="ride-options">
+                    <div class="row ride-option">
+                        <div class="col">30 mins</div>
+                        <div class="col">3 drivers</div>
+                        <div class="col">Rs. 100/-</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
+        function closeParent(e) {
+            e.parentElement.style.display = 'none';
+        }
+
         function toggleSidebar() {
             var element = document.getElementsByClassName("sidebar")[0];
             if (element.style.display == 'none') {
                 element.style.display = 'flex';
             } else {
                 element.style.display = 'none';
+            }
+        }
+
+        var pickupInput = document.getElementById('pickup-location-input');
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                pickupInput.value = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            pickupInput.value = "Latitude: " + position.coords.latitude +
+                " | Longitude: " + position.coords.longitude;
+        }
+
+        var rideOptions = "{{ rideOptions | escapejs }}"
+        if (rideOptions != "") {
+            console.log("rideOptions found")
+            showRideOptions(1)
+        } else {
+            console.log("No rideOptions found")
+            showRideOptions(0)
+        }
+
+        function showRideOptions(show) {
+            var block1 = document.getElementById('ride-options-absent')
+            var block2 = document.getElementById('ride-options-present')
+            if (show == 1) {
+                var rideOptionsJson = JSON.parse(rideOptions)
+                var rideOptionsEle = document.getElementById('ride-options')
+                for (var i = 1; i < rideOptionsJson.length; i++) {
+                    var clone = rideOptionsEle.firstElementChild.cloneNode(true)
+                    clone.children[0].innerHTML = rideOptionsJson[i]['eta'] + ' mins'
+                    clone.children[1].innerHTML = rideOptionsJson[i]['drivers'] + ' drivers'
+                    clone.children[2].innerHTML = 'Rs. ' + rideOptionsJson[i]['price'] + '/-'
+                    rideOptionsEle.appendChild(clone)
+                }
+                block1.style.display = 'none'
+            } else {
+                block2.style.display = 'none'
             }
         }
     </script>

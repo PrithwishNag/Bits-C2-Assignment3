@@ -149,7 +149,7 @@ body {
   text-align: center;
 }
 
-.title {
+.nav-left .title {
   margin-left: 5px;
 }
 
@@ -162,10 +162,10 @@ body {
 .main-right .title {
   font-weight: bold;
   font-size: 35px;
+  margin-bottom: 20px;
 }
 
 .main-right .desc {
-  margin-top: 20px;
   margin-bottom: 20px;
   font-size: 20px;
   width: 150px;
@@ -252,6 +252,27 @@ button {
   align-self: flex-end;
   margin-right: 10px;
   margin-bottom: 5px;
+}
+
+#ride-options {
+  margin-top: 20px;
+}
+
+.ride-option {
+  width: 300px;
+  border-top: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ride-option:hover {
+  font-weight: bold;
+  border-top: 3px solid var(--secondary-color);
+  border-bottom: 3px solid var(--secondary-color);
 }
 
 @media screen and (max-width: 1200px) {

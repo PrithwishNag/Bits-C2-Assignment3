@@ -53,35 +53,3 @@ label {
   width: 93%;
   overflow: hidden;
 }
-
-.alert {
-  display: flex;
-  flex-direction: row;
-  width: 320px;
-  height: 40px;
-  border-radius: 7px;
-  margin-bottom: 10px;
-}
-
-.alert-inner {
-  font-size: 13px;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-}
-
-.error-alert {
-  background-color: #ff6961;
-}
-
-.success-alert {
-  background-color: #77dd77;
-}
-
-.close-button {
-  width: 20px;
-  height: 20px;
-  align-self: center;
-  margin-right: 10px;
-  padding: 0px;
-}

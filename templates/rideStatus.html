@@ -73,22 +73,28 @@
                 </div>
             </div>
         </div>
-        <div class="main col">
-            <h1>Ride Status</h1>
-            {% if driver is not None %}
-            <div style="margin-top: 20px;">You have been assigned <span
-                    style="font-size: 20px; font-weight: bold;">{{driver}}</span> as your
-                driver</div>
-            <div style="margin-top: 10px">Your driver will be arriving soon to your pickup location</div>
-            <div id="map"><img width="600px" src="{% static 'images/map.jpg' %}"></img></div>
-            <div class="row rideActionBtn" style="width: 300px; justify-content: space-around;">
-                <button onclick="completeRide()">Complete Ride</button>
-                <button onclick="cancelRide()">Cancel Ride</button>
+        <div class="main">
+            <div class="main-inner">
+                <div class="main-center">
+                    <div class="col horizontal-center">
+                        <h1>Ride Status</h1>
+                        {% if driver is not None %}
+                        <div style="margin-top: 20px;">You have been assigned <span
+                                style="font-size: 20px; font-weight: bold;">{{driver}}</span> as your
+                            driver</div>
+                        <div style="margin-top: 10px">Your driver will be arriving soon to your pickup location</div>
+                        <div id="map"><img width="600px" src="{% static 'images/map.jpg' %}"></img></div>
+                        <div class="row rideActionBtn" style="width: 300px; justify-content: space-around;">
+                            <button onclick="completeRide()">Complete Ride</button>
+                            <button onclick="cancelRide()">Cancel Ride</button>
+                        </div>
+                        {% else %}
+                        <h3>Opps!</h3>
+                        <h5>No nearby drivers available at the moment</h5>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            {% else %}
-            <h3>Opps!</h3>
-            <h5>No nearby drivers available at the moment</h5>
-            {% endif %}
         </div>
     </div>
     <script>

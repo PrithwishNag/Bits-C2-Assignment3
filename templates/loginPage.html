@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RideShare: Login</title>
+  <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/authentication.css' %}" />
+</head>
+
+<body class="container">
+  <h1 class="heading">RIDESHARE</h1>
+  <div class="sub-heading" style="margin-bottom: 20px">Login</div>
+  {% for message in messages %}
+  {% if message.tags %}
+  <div class="alert {{message.tags}}-alert">
+    <div class="alert-inner">{{ message }}</div>
+    <button class="close-button" onclick="closeParent(this)">
+      &times
+    </button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  <form id="login-container" action="" method="POST">
+    {% csrf_token %}
+    <div>
+      <div class="key">Username</div>
+      <div>
+        <input name="username" type="text"></input>
+      </div>
+    </div>
+    <div>
+      <div class="key">Password</div>
+      <div>
+        <input name="password" type="password"></input>
+      </div>
+    </div>
+    <div>
+      <a href="/register" id="switchLink" style="margin-right:15px">
+        Don't have an account?
+      </a>
+    </div>
+    <div>
+      <button type="submit">
+        Login
+      </button>
+    </div>
+  </form>
+  <script>
+    function closeParent(e) {
+      e.parentElement.style.display = 'none';
+    }
+
+    var loginContainer = document.getElementById('login-container');
+    var loginContainerChildren = loginContainer.children;
+    for (var i = 2; i < loginContainerChildren.length; i++) {
+      loginContainerChildren[i].style.marginTop = "10px";
+    };
+  </script>
+</body>
+
+</html>

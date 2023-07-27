@@ -60,6 +60,7 @@ button {
   border-radius: 5px;
   width: 120px;
   height: 35px;
+  cursor: pointer;
 }
 
 button:hover {

@@ -52,7 +52,7 @@
         <div class="main-left col horizontal-center">
             <div class="title">Search for a ride</div>
             {% for message in messages %}
-            {% if message.tags %}
+            {% if message.tags == 'error' %}
             <div class="alert {{message.tags}}-alert">
                 <div class="alert-inner">{{ message }}</div>
                 <button class="close-button" onclick="closeParent(this)">
@@ -61,7 +61,7 @@
             </div>
             {% endif %}
             {% endfor %}
-            <form class="col horizontal-center" action="" method="POST">
+            <form class="col horizontal-center" action="/dashboard/getRideOptions" method="POST">
                 {% csrf_token %}
                 <div class="location-group row">
                     <div class="group-1 row horizontal-center">
@@ -178,6 +178,14 @@
                 window.location.href = href
             }
         }
+
+        setTimeout(function () {
+            "{% for message in messages %}"
+            "{% if message.tags == 'info'%}"
+            alert("{{message}}")
+            "{% endif %}"
+            "{% endfor %}"
+        }, 1);
     </script>
 </body>
 

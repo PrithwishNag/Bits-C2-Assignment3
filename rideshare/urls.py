@@ -22,5 +22,7 @@ urlpatterns = [
     path('', auth_view.login),
     path('register', auth_view.register),
     path('dashboard', search_view.dashboard),
+    path('dashboard/getRideOptions', search_view.getRideOptions),
     path('rideStatus', search_view.rideStatus),
+    path('rideStatus/feedback', search_view.feedback),
 ]

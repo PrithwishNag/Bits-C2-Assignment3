@@ -56,7 +56,7 @@
       </a>
     </div>
     <div>
-      <button type="submit">
+      <button type="submit" onclick="return confirmCreateAccount()">
         Register
       </button>
     </div>
@@ -73,6 +73,10 @@
 
     function closeParent(e) {
       e.parentElement.style.display = 'none';
+    }
+
+    function confirmCreateAccount() {
+      return window.confirm("Are you sure you want to create an account?");
     }
 
     var loginContainer = document.getElementById('login-container');

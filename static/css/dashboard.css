@@ -277,6 +277,16 @@ button {
   border-bottom: 3px solid var(--secondary-color);
 }
 
+#map {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.star {
+  font-size: 300%;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
   .main {
     width: 90%;

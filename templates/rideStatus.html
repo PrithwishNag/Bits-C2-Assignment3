@@ -3,10 +3,11 @@
 <html>
 
 <head>
-    <title>RideShare: Homepage</title>
+    <title>RideShare: Ride Status</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
 </head>
 
 <body>
@@ -27,25 +28,67 @@
             <a href="#">Ongoing Bids</a>
         </div>
     </div>
-    <div class="sidebar col horizontal-center">
-        <div class="sidebar-top col horizontal-center">
-            <div class="user-name">GUEST</div>
-            <div class="sidebar-top-options col">
-                <a href="#">Profile</a>
+    <div class="row">
+        <div class="sidebar col horizontal-center">
+            <div class="sidebar-top col horizontal-center">
+                <div class="user-name">GUEST</div>
+                <div class="sidebar-top-options col">
+                    <a href="#">Profile</a>
+                    <div class="horizontal-line"></div>
+                    <a href="#">Partner</a>
+                    <div class="horizontal-line"></div>
+                    <a href="#">Support</a>
+                    <div class="horizontal-line"></div>
+                    <a href="#">About Us</a>
+                </div>
+            </div>
+            <div class="sidebar-bottom col horizontal-center">
                 <div class="horizontal-line"></div>
-                <a href="#">Partner</a>
-                <div class="horizontal-line"></div>
-                <a href="#">Support</a>
-                <div class="horizontal-line"></div>
-                <a href="#">About Us</a>
+                <div class="sidebar-bottom-options row">
+                    <a href="#">T&C</a>
+                    <a href="#">Privacy</a>
+                </div>
             </div>
         </div>
-        <div class="sidebar-bottom col horizontal-center">
-            <div class="horizontal-line"></div>
-            <div class="sidebar-bottom-options row">
-                <a href="#">T&C</a>
-                <a href="#">Privacy</a>
+        <div id="feedback-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-modal-btn">&times;</span>
+                    <h2>Feedback</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Please rate your ride</p>
+                    <form action="rideStatus/feedback" method="POST">
+                        {% csrf_token %}
+                        <p>
+                            <span class="star" onclick="fillStars(1)">&star;</span>
+                            <span class="star" onclick="fillStars(2)">&star;</span>
+                            <span class="star" onclick="fillStars(3)">&star;</span>
+                            <span class="star" onclick="fillStars(4)">&star;</span>
+                            <span class="star" onclick="fillStars(5)">&star;</span>
+                        </p>
+                        <p><input name="comments" /></p>
+                        <p><button type="submit">Submit</button></p>
+                    </form>
+                </div>
             </div>
+        </div>
+        <div class="main col">
+            <h1>Ride Status</h1>
+            {% if driver is not None %}
+            <div style="margin-top: 20px;">You have been assigned <span
+                    style="font-size: 20px; font-weight: bold;">{{driver}}</span> as your
+                driver</div>
+            <div style="margin-top: 10px">Your driver will be arriving soon to your pickup location</div>
+            <div id="map"><img width="600px" src="{% static 'images/map.jpg' %}"></img></div>
+            <div class="row rideActionBtn" style="width: 300px; justify-content: space-around;">
+                <button onclick="completeRide()">Complete Ride</button>
+                <button onclick="cancelRide()">Cancel Ride</button>
+            </div>
+            {% else %}
+            <h3>Opps!</h3>
+            <h5>No nearby drivers available at the moment</h5>
+            {% endif %}
         </div>
     </div>
     <script>
@@ -59,6 +102,41 @@
                 element.style.display = 'flex';
             } else {
                 element.style.display = 'none';
+            }
+        }
+
+        function cancelRide() {
+            if (window.confirm("Are you sure you want to cancel this ride?")) {
+                window.location.href = "/dashboard"
+            }
+        }
+
+        // Stars
+        var stars = document.getElementsByClassName('star')
+        function fillStars(idx) {
+            for (var i = 0; i < idx; i++) {
+                stars[i].innerHTML = '&starf;'
+            }
+            for (var i = idx; i < stars.length; i++) {
+                stars[i].innerHTML = '&star;'
+            }
+        }
+
+        // Modal
+        var modal = document.getElementById("feedback-modal");
+        var span = document.getElementsByClassName("close-modal-btn")[0];
+
+        function completeRide() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
         }
     </script>

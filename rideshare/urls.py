@@ -17,12 +17,13 @@ Including another URLconf
 from django.urls import path
 from authentication import views as auth_view
 from search import views as search_view
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    path('', auth_view.login),
-    path('register', auth_view.register),
-    path('dashboard', search_view.dashboard),
-    path('dashboard/getRideOptions', search_view.getRideOptions),
-    path('rideStatus', search_view.rideStatus),
-    path('rideStatus/feedback', search_view.feedback),
+    path('', csrf_exempt(auth_view.login)),
+    path('register', csrf_exempt(auth_view.register)),
+    path('dashboard', csrf_exempt(search_view.dashboard)),
+    path('dashboard/getRideOptions', csrf_exempt(search_view.getRideOptions)),
+    path('rideStatus', csrf_exempt(search_view.rideStatus)),
+    path('rideStatus/feedback', csrf_exempt(search_view.feedback)),
 ]

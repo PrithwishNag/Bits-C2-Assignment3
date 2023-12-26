@@ -14,7 +14,7 @@ spec:
     spec:
       initContainers:
         - name: collectstatic
-          image: belowaverage/rideshare-django:v4
+          image: belowaverage/rideshare-django:v12
           command: ["python3", "manage.py", "collectstatic", "--no-input", "--settings=rideshare.settings_local"]
           volumeMounts:
             - name: staticfiles
@@ -26,7 +26,7 @@ spec:
       containers:
         # Django container
         - name: django-server
-          image: belowaverage/rideshare-django:v4
+          image: belowaverage/rideshare-django:v12
           env:
             - name: PORT
               value: "8000"

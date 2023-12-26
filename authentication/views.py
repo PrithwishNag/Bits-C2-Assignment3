@@ -60,7 +60,7 @@ def register(request):
                 messages.success(request, "Your account has been successfully created")
 
             except Exception as error:
-                logger.error('User model creation failed')
+                logger.error('User model creation failed: %s', error)
                 messages.error(request, "Try another username")
 
     return render(request, 'registerPage.html')
